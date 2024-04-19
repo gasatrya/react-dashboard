@@ -2,7 +2,11 @@ import type { LinksFunction } from '@remix-run/node'
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import stylesheet from '~/tailwind.css?url'
 
-export const links: LinksFunction = () => [{ rel: 'stylesheet', href: stylesheet }]
+export const links: LinksFunction = () => [
+  { rel: 'stylesheet', href: stylesheet },
+  { rel: 'preconnect', href: 'https://rsms.me' },
+  { rel: 'stylesheet', href: 'https://rsms.me/inter/inter.css' },
+]
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
