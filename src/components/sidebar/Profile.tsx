@@ -1,16 +1,14 @@
-'use client'
-
 import profileDummy from '@/assets/img/profile.jpg'
 import { Button } from '@/components/ui/button'
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger,
+  PopoverTrigger
 } from '@/components/ui/popover'
 import { useToast } from '@/components/ui/use-toast'
 import { useAppStore } from '@/store'
-import { ChevronsUpDown, LogOut, UserCircle2 } from 'lucide-react'
-import { Link, useNavigate } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
+import { ChevronsUpDown, LogOut } from 'lucide-react'
 
 export default function Profile() {
   const { toast } = useToast()
@@ -24,20 +22,20 @@ export default function Profile() {
       toast({
         title: 'Logout Succesful!',
         description: 'Bye bye 👋',
-        variant: 'success',
+        variant: 'success'
       })
       setTimeout(() => {
         navigate({
-          to: '/login',
+          to: '/login'
         })
       }, 1000)
     }
   }
 
   return (
-    <div className="ml-auto relative col-start-11 col-end-13 flex items-center">
+    <div className="border-t pt-3 mt-3">
       <Popover>
-        <PopoverTrigger className="flex items-center text-sm h-full py-2 px-4 hover:text-primary">
+        <PopoverTrigger className="flex items-center text-sm h-full p-0 hover:text-primary">
           <img
             src={profileDummy}
             width={32}
@@ -51,21 +49,12 @@ export default function Profile() {
             <ChevronsUpDown size={16} />
           </span>
         </PopoverTrigger>
-        <PopoverContent className="w-40 p-1" align="start" alignOffset={-20}>
-          <div>
-            <Link
-              className="flex items-center p-3 text-sm font-medium hover:text-primary"
-              to="/"
-            >
-              Profile
-              <UserCircle2 size={16} className="ml-auto" />
-            </Link>
-          </div>
+        <PopoverContent className="p-1 m-2 w-52" align="start" side="top">
           <div>
             <Button
               variant="link"
               type="button"
-              className="flex items-center p-3 text-sm font-medium hover:text-primary last:border-t w-full hover:no-underline text-foreground rounded-none"
+              className="flex items-center p-3 text-sm font-medium hover:text-primary w-full hover:no-underline text-foreground rounded-none"
               onClick={handleLogout}
             >
               Logout

@@ -6,7 +6,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
@@ -17,11 +17,12 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from '@tanstack/react-router'
 import useSWRMutation from 'swr/mutation'
 import { z } from 'zod'
+import { mutate } from 'swr'
 
 const loginFormSchema = z.object({
   username: z.string().min(1, { message: 'Username is required' }),
   password: z.string().min(1, { message: 'Password is required' }),
-  remember: z.boolean().optional(),
+  remember: z.boolean().optional()
 })
 
 export default function LoginForm() {
@@ -33,8 +34,8 @@ export default function LoginForm() {
     defaultValues: {
       username: '',
       password: '',
-      remember: false,
-    },
+      remember: false
+    }
   })
 
   const { trigger, isMutating } = useSWRMutation('auth/login', loginRequest, {
@@ -44,18 +45,18 @@ export default function LoginForm() {
         toast({
           title: 'Login Success!',
           description: 'You will be redirected to dashboard',
-          variant: 'success',
+          variant: 'success'
         })
         setTimeout(() => {
           navigate({
-            to: '/',
+            to: '/'
           })
         }, 1000)
       } else {
         toast({
           title: data?.message,
           description: 'Please try again',
-          variant: 'destructive',
+          variant: 'destructive'
         })
       }
     },
@@ -63,13 +64,18 @@ export default function LoginForm() {
       toast({
         title: 'Login Failed!',
         description: 'Something went wrong, please try again',
-        variant: 'destructive',
+        variant: 'destructive'
       })
-    },
+    }
   })
 
   const onSubmit = (values: z.infer<typeof loginFormSchema>) => {
     trigger({ username: values.username, password: values.password })
+    mutate(
+      (key) => typeof key === 'string' && key.startsWith('role-menu'),
+      undefined,
+      { revalidate: true }
+    )
   }
 
   return (

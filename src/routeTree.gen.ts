@@ -19,9 +19,6 @@ import { Route as rootRoute } from './routes/__root'
 const DashboardLazyImport = createFileRoute('/_dashboard')()
 const AuthLazyImport = createFileRoute('/_auth')()
 const DashboardIndexLazyImport = createFileRoute('/_dashboard/')()
-const DashboardSubscribersIndexLazyImport = createFileRoute(
-  '/_dashboard/subscribers/',
-)()
 const AuthAuthLoginLazyImport = createFileRoute('/_auth/_auth/login')()
 
 // Create/Update Routes
@@ -42,14 +39,6 @@ const DashboardIndexLazyRoute = DashboardIndexLazyImport.update({
 } as any).lazy(() =>
   import('./routes/_dashboard/index.lazy').then((d) => d.Route),
 )
-
-const DashboardSubscribersIndexLazyRoute =
-  DashboardSubscribersIndexLazyImport.update({
-    path: '/subscribers/',
-    getParentRoute: () => DashboardLazyRoute,
-  } as any).lazy(() =>
-    import('./routes/_dashboard/subscribers/index.lazy').then((d) => d.Route),
-  )
 
 const AuthAuthLoginLazyRoute = AuthAuthLoginLazyImport.update({
   path: '/login',
@@ -90,13 +79,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthAuthLoginLazyImport
       parentRoute: typeof AuthLazyImport
     }
-    '/_dashboard/subscribers/': {
-      id: '/_dashboard/subscribers/'
-      path: '/subscribers'
-      fullPath: '/subscribers'
-      preLoaderRoute: typeof DashboardSubscribersIndexLazyImport
-      parentRoute: typeof DashboardLazyImport
-    }
   }
 }
 
@@ -106,8 +88,41 @@ export const routeTree = rootRoute.addChildren({
   AuthLazyRoute: AuthLazyRoute.addChildren({ AuthAuthLoginLazyRoute }),
   DashboardLazyRoute: DashboardLazyRoute.addChildren({
     DashboardIndexLazyRoute,
-    DashboardSubscribersIndexLazyRoute,
   }),
 })
 
 /* prettier-ignore-end */
+
+/* ROUTE_MANIFEST_START
+{
+  "routes": {
+    "__root__": {
+      "filePath": "__root.tsx",
+      "children": [
+        "/_auth",
+        "/_dashboard"
+      ]
+    },
+    "/_auth": {
+      "filePath": "_auth.lazy.tsx",
+      "children": [
+        "/_auth/_auth/login"
+      ]
+    },
+    "/_dashboard": {
+      "filePath": "_dashboard.lazy.tsx",
+      "children": [
+        "/_dashboard/"
+      ]
+    },
+    "/_dashboard/": {
+      "filePath": "_dashboard/index.lazy.tsx",
+      "parent": "/_dashboard"
+    },
+    "/_auth/_auth/login": {
+      "filePath": "_auth/_auth.login.lazy.tsx",
+      "parent": "/_auth"
+    }
+  }
+}
+ROUTE_MANIFEST_END */

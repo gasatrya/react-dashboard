@@ -6,6 +6,6 @@ export async function loginRequest(
 ) {
   return await fetcher(url, {
     method: 'POST',
-    body: JSON.stringify(arg),
+    body: JSON.stringify(arg)
   })
 }

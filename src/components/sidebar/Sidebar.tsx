@@ -1,42 +1,59 @@
-import { ScrollArea } from '@/components/ui/scroll-area'
+import { useAppStore } from '@/store'
+import { cn } from '@/utils/helpers'
 import { Link } from '@tanstack/react-router'
-import { Cpu } from 'lucide-react'
-import Menu from './Menu'
+import { Cpu, PanelLeftClose } from 'lucide-react'
+import { Button } from '../ui/button'
+import Profile from './Profile'
 
 export default function Sidebar({ active }: { active: boolean }) {
+  const openSidebar = useAppStore((state) => state.openSidebar)
+  const setOpenSidebar = useAppStore((state) => state.setOpenSidebar)
+
   return (
     <aside
-      className={`w-64 text-sm 2xl:text-base transition-transform duration-300 fixed ${
+      className={cn(
+        'w-72 text-sm 2xl:text-base transition-transform duration-300 fixed py-5 px-6 bg-secondary/50 h-dvh overflow-y-auto border-r',
         active ? '-translate-x-full ' : ''
-      }`}
+      )}
     >
-      <ScrollArea className="h-screen">
-        <div className="p-6 pl-0 flex flex-col gap-8">
-          <div className="flex flex-col gap-4">
-            <h2 className="uppercase text-xs font-medium tracking-wider">
-              Service Overview
-            </h2>
-            <ul>
-              <li>
-                <Link
-                  to="/"
-                  className="flex items-center gap-3 font-semibold hover:text-primary"
-                >
-                  <Cpu size={17} />
-                  Dashboard
-                </Link>
-              </li>
-            </ul>
-          </div>
+      <div className="flex flex-col gap-8 h-full">
+        <header>
+          <h1 className="text-primary font-bold text-2xl">LOGO</h1>
+        </header>
 
-          <div className="flex flex-col gap-4">
-            <h2 className="uppercase text-xs font-medium tracking-wider">
-              Service Management
-            </h2>
-            <Menu />
-          </div>
+        <div className="flex flex-col gap-4">
+          <h2 className="uppercase text-xs font-medium tracking-wider text-muted-foreground">
+            Navigation
+          </h2>
+          <ul>
+            <li>
+              <Link
+                to="/"
+                className="flex items-center gap-3 font-medium hover:text-primary text-[15px]"
+              >
+                <Cpu size={18} strokeWidth={1.5} />
+                Dashboard
+              </Link>
+            </li>
+          </ul>
         </div>
-      </ScrollArea>
+
+        <footer className="mt-auto">
+          <Button
+            type="button"
+            variant="link"
+            className="p-0 flex items-center gap-1 font-semibold text-sm hover:no-underline text-foreground hover:text-primary"
+            onClick={() => {
+              setOpenSidebar(!openSidebar)
+            }}
+          >
+            <PanelLeftClose size={18} strokeWidth={1.5} />
+            Collapse Menu
+          </Button>
+
+          <Profile />
+        </footer>
+      </div>
     </aside>
   )
 }

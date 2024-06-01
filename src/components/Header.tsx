@@ -1,16 +1,16 @@
 import { useAppStore } from '@/store'
 import { Link } from '@tanstack/react-router'
-import { Menu } from 'lucide-react'
+import { PanelLeftClose, PanelRightClose } from 'lucide-react'
 import forestLogo from '../../assets/img/f-logo.png'
-import { Button } from '../ui/button'
-import Profile from './Profile'
+import { Button } from './ui/button'
+import Profile from './sidebar/Profile'
 
 export default function Header() {
   const openSidebar = useAppStore((state) => state.openSidebar)
   const setOpenSidebar = useAppStore((state) => state.setOpenSidebar)
 
   return (
-    <header className="bg-background grid grid-cols-12 sticky left-0 top-0 h-14 w-full z-20 shadow-sm">
+    <header className="bg-background grid grid-cols-12 sticky left-0 top-0 h-14 w-full z-20 shadow">
       <div className="col-start-1 col-end-3">
         <Button
           type="button"
@@ -18,10 +18,20 @@ export default function Header() {
           className="h-full py-2 px-4 flex items-center gap-1 font-semibold text-sm hover:no-underline text-foreground hover:text-primary"
           onClick={() => {
             setOpenSidebar(!openSidebar)
+            return undefined
           }}
         >
-          <Menu size={18} />
-          {openSidebar ? 'Show Menu' : 'Collapse Menu'}
+          {openSidebar ? (
+            <>
+              <PanelRightClose size={18} strokeWidth={1.5} />
+              Show Menu
+            </>
+          ) : (
+            <>
+              <PanelLeftClose size={18} strokeWidth={1.5} />
+              Collapse Menu
+            </>
+          )}
         </Button>
       </div>
 
