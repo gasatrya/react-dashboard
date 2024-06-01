@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @supports (font-variation-settings: normal) {
+    :root {
+      font-family: InterVariable, sans-serif;
+    }
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+
+    --primary: 145 100% 24%;
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 0 0% 91%;
+    --secondary-foreground: 0 0% 9%;
+
+    --muted: 0 0% 91%;
+    --muted-foreground: 0 0% 45.1%;
+
+    --accent: 0 0% 91%;
+    --accent-foreground: 0 0% 9%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 2% 81%;
+    --input: 0 2% 81%;
+    --ring: 0 0% 3.9%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .card {
+    @apply before:absolute before:left-[15px] before:right-[15px] before:top-0 before:bottom-0 before:border-t before:border-b before:border-border after:absolute after:top-[15px] after:bottom-[15px] after:left-0 after:right-0 after:border-r after:border-l after:border-border;
+  }
+
+  .card-before {
+    @apply before:absolute before:w-[2px] before:h-[9px] before:bg-accent-foreground;
+  }
+
+  .card-after {
+    @apply after:absolute after:w-[10px] after:h-[2px] after:bg-accent-foreground;
+  }
+}

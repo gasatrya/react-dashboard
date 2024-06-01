@@ -1,6 +1,7 @@
-import type { Config } from 'tailwindcss'
+/** @type {import('tailwindcss').Config} */
+import tailwindAnimate from 'tailwindcss-animate'
 
-const config = {
+export default {
   darkMode: ['class'],
   content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './app/**/*.{ts,tsx}', './src/**/*.{ts,tsx}'],
   prefix: '',
@@ -13,14 +14,6 @@ const config = {
       },
     },
     extend: {
-      fontFamily: {
-        sans: [
-          '"Inter", sans-serif',
-          {
-            fontFeatureSettings: '"liga" 1, "calt" 1',
-          },
-        ],
-      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -75,9 +68,23 @@ const config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      fontFamily: {
+        sans: [
+          '"Inter", sans-serif',
+          {
+            fontFeatureSettings: '"liga" 1, "calt" 1',
+          },
+        ],
+      },
+      backgroundImage: {
+        'body-cover':
+          'linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.99) 100%), url(assets/img/cover.avif)',
+        'body-pattern': 'url(assets/img/pattern.png)',
+      },
+      backgroundSize: {
+        'body-pattern-size': '4.6875rem',
+      },
     },
   },
-  plugins: [require('tailwindcss-animate')],
-} satisfies Config
-
-export default config
+  plugins: [tailwindAnimate],
+}
