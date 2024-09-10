@@ -41,50 +41,50 @@ export default function Sidebar({ active }: { active: boolean }) {
             <li>
               <Link
                 to="/"
-                className="flex items-center gap-x-3 font-medium
- hover:text-primary p-3 hover:bg-secondary rounded-md text-base"
+                className="flex items-center gap-x-2.5 font-medium
+ hover:text-primary py-2.5 px-3 hover:bg-secondary rounded-md text-sm"
               >
-                <Cpu size={22} strokeWidth={1.5} />
+                <Cpu size={20} strokeWidth={1.5} />
                 Dashboard
               </Link>
             </li>
             <li>
               <Link
                 to="/users"
-                className="flex items-center gap-x-3 font-medium
- hover:text-primary p-3 hover:bg-secondary rounded-md text-base"
+                className="flex items-center gap-x-2.5 font-medium
+ hover:text-primary py-2.5 px-3 hover:bg-secondary rounded-md text-sm"
               >
-                <Users size={22} strokeWidth={1.5} />
+                <Users size={20} strokeWidth={1.5} />
                 Users
               </Link>
             </li>
             <li>
               <Link
                 to="/analytics"
-                className="flex items-center gap-x-3 font-medium
- hover:text-primary p-3 hover:bg-secondary rounded-md text-base"
+                className="flex items-center gap-x-2.5 font-medium
+ hover:text-primary py-2.5 px-3 hover:bg-secondary rounded-md text-sm"
               >
-                <BarChart size={22} strokeWidth={1.5} />
+                <BarChart size={20} strokeWidth={1.5} />
                 Analytics
               </Link>
             </li>
             <li>
               <Link
                 to="/reports"
-                className="flex items-center gap-x-3 font-medium
- hover:text-primary p-3 hover:bg-secondary rounded-md text-base"
+                className="flex items-center gap-x-2.5 font-medium
+ hover:text-primary py-2.5 px-3 hover:bg-secondary rounded-md text-sm"
               >
-                <FileText size={22} strokeWidth={1.5} />
+                <FileText size={20} strokeWidth={1.5} />
                 Reports
               </Link>
             </li>
             <li>
               <Link
                 to="/settings"
-                className="flex items-center gap-x-3 font-medium
- hover:text-primary p-3 hover:bg-secondary rounded-md text-base"
+                className="flex items-center gap-x-2.5 font-medium
+ hover:text-primary py-2.5 px-3 hover:bg-secondary rounded-md text-sm"
               >
-                <Settings size={22} strokeWidth={1.5} />
+                <Settings size={20} strokeWidth={1.5} />
                 Settings
               </Link>
             </li>
