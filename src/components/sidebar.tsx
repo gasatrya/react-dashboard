@@ -1,25 +1,31 @@
-import { Button } from "@/components/ui/button";
-import { useAppStore } from "@/lib/store";
-import { cn } from "@/lib/utils";
-import { Link } from "@tanstack/react-router";
+import { Button } from '@/components/ui/button'
+import fetcher from '@/lib/fetcher'
+import { useAppStore } from '@/lib/store'
+import { cn } from '@/lib/utils'
+import { Link } from '@tanstack/react-router'
 import {
-  Cpu,
-  PanelLeftClose,
-  Users,
   BarChart,
+  Cpu,
   FileText,
+  PanelLeftClose,
   Settings,
-} from "lucide-react";
+  Users,
+} from 'lucide-react'
+import useSWR from 'swr'
 
 export default function Sidebar({ active }: { active: boolean }) {
-  const sidebarOpen = useAppStore((state) => state.sidebarOpen);
-  const setSidebarOpen = useAppStore((state) => state.setSidebarOpen);
+  const { data: menuItems, error } = useSWR(
+    'http://localhost:3001/menu',
+    fetcher,
+  )
+  const sidebarOpen = useAppStore((state) => state.sidebarOpen)
+  const setSidebarOpen = useAppStore((state) => state.setSidebarOpen)
 
   return (
     <aside
       className={cn(
-        "w-72 text-sm 2xl:text-base transition-transform duration-300 fixed py px-3 bg-secondary/50 h-dvh overflow-y-auto border-r",
-        active ? "-translate-x-full " : ""
+        'w-72 text-sm 2xl:text-base transition-transform duration-300 fixed py px-3 bg-secondary/50 h-dvh overflow-y-auto border-r',
+        active ? '-translate-x-full ' : '',
       )}
     >
       <div className="flex flex-col gap-y-4 h-full">
@@ -92,5 +98,5 @@ export default function Sidebar({ active }: { active: boolean }) {
         </nav>
       </div>
     </aside>
-  );
+  )
 }
