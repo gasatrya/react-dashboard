@@ -45,56 +45,22 @@ export default function Sidebar({ active }: { active: boolean }) {
 
         <nav className="flex flex-col gap-4">
           <ul className="space-y-1">
-            <li>
-              <Link
-                to="/"
-                className="flex items-center gap-x-2.5 font-medium
- hover:text-primary py-2.5 px-3 hover:bg-secondary rounded-md text-sm"
-              >
-                <Cpu size={20} strokeWidth={1.5} />
-                Dashboard
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/users"
-                className="flex items-center gap-x-2.5 font-medium
- hover:text-primary py-2.5 px-3 hover:bg-secondary rounded-md text-sm"
-              >
-                <Users size={20} strokeWidth={1.5} />
-                Users
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/analytics"
-                className="flex items-center gap-x-2.5 font-medium
- hover:text-primary py-2.5 px-3 hover:bg-secondary rounded-md text-sm"
-              >
-                <BarChart size={20} strokeWidth={1.5} />
-                Analytics
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/reports"
-                className="flex items-center gap-x-2.5 font-medium
- hover:text-primary py-2.5 px-3 hover:bg-secondary rounded-md text-sm"
-              >
-                <FileText size={20} strokeWidth={1.5} />
-                Reports
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/settings"
-                className="flex items-center gap-x-2.5 font-medium
- hover:text-primary py-2.5 px-3 hover:bg-secondary rounded-md text-sm"
-              >
-                <Settings size={20} strokeWidth={1.5} />
-                Settings
-              </Link>
-            </li>
+            {error && <div>Error loading menu</div>}
+            {!menuItems && <div>Loading...</div>}
+            {menuItems && menuItems.map((item) => {
+              const Icon = require('lucide-react')[item.icon];
+              return (
+                <li key={item.id}>
+                  <Link
+                    to={item.path}
+                    className="flex items-center gap-x-2.5 font-medium hover:text-primary py-2.5 px-3 hover:bg-secondary rounded-md text-sm"
+                  >
+                    <Icon size={20} strokeWidth={1.5} />
+                    {item.name}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </div>
