@@ -16,7 +16,7 @@ import useSWR from 'swr'
 
 export default function Sidebar({ active }: { active: boolean }) {
   const { data: menuItems, error } = useSWR<MenuItem[], Error>(
-    'http://localhost:3001/menu',
+    'http://localhost:3000/menu',
     fetcher,
   )
   const sidebarOpen = useAppStore((state) => state.sidebarOpen)
@@ -47,20 +47,33 @@ export default function Sidebar({ active }: { active: boolean }) {
           <ul className="space-y-1">
             {error && <div>Error loading menu</div>}
             {!menuItems && <div>Loading...</div>}
-            {menuItems && menuItems.map((item) => {
-              const Icon = require('lucide-react')[item.icon];
-              return (
-                <li key={item.id}>
-                  <Link
-                    to={item.path}
-                    className="flex items-center gap-x-2.5 font-medium hover:text-primary py-2.5 px-3 hover:bg-secondary rounded-md text-sm"
-                  >
-                    <Icon size={20} strokeWidth={1.5} />
-                    {item.name}
-                  </Link>
-                </li>
-              );
-            })}
+            {menuItems &&
+              menuItems.map((item) => {
+                let Icon = item.icon
+                if (item.name === 'Dashboard') {
+                  Icon = <Cpu size={20} strokeWidth={1.5} />
+                } else if (item.name === 'Users') {
+                  Icon = <Users size={20} strokeWidth={1.5} />
+                } else if (item.name === 'Analytics') {
+                  Icon = <BarChart size={20} strokeWidth={1.5} />
+                } else if (item.name === 'Reports') {
+                  Icon = <FileText size={20} strokeWidth={1.5} />
+                } else if (item.name === 'Settings') {
+                  Icon = <Settings size={20} strokeWidth={1.5} />
+                }
+
+                return (
+                  <li key={item.id}>
+                    <Link
+                      to={item.path}
+                      className="flex items-center gap-x-2.5 font-medium hover:text-primary py-2.5 px-3 hover:bg-secondary rounded-md text-sm"
+                    >
+                      {Icon}
+                      {item.name}
+                    </Link>
+                  </li>
+                )
+              })}
           </ul>
         </nav>
       </div>
