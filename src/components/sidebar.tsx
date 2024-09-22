@@ -3,6 +3,7 @@ import fetcher from '@/lib/fetcher'
 import { useAppStore } from '@/lib/store'
 import { cn } from '@/lib/utils'
 import { Link } from '@tanstack/react-router'
+import { MenuItem } from '@/types/menu';
 import {
   BarChart,
   Cpu,
@@ -14,7 +15,7 @@ import {
 import useSWR from 'swr'
 
 export default function Sidebar({ active }: { active: boolean }) {
-  const { data: menuItems, error } = useSWR(
+  const { data: menuItems, error } = useSWR<MenuItem[]>(
     'http://localhost:3001/menu',
     fetcher,
   )
