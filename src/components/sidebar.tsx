@@ -2,8 +2,8 @@ import { Button } from '@/components/ui/button'
 import fetcher from '@/lib/fetcher'
 import { useAppStore } from '@/lib/store'
 import { cn } from '@/lib/utils'
-import { Link } from '@tanstack/react-router'
 import { MenuItem } from '@/types/menu'
+import { Link } from '@tanstack/react-router'
 import {
   BarChart,
   Cpu,
@@ -15,10 +15,11 @@ import {
 import useSWR from 'swr'
 
 export default function Sidebar({ active }: { active: boolean }) {
-  const { data: menuItems, error } = useSWR<MenuItem[], Error>(
-    'http://localhost:3000/menu',
-    fetcher,
-  )
+  const {
+    data: menuItems,
+    isLoading,
+    error,
+  } = useSWR<MenuItem[], Error>('http://localhost:3213/menu', fetcher)
   const sidebarOpen = useAppStore((state) => state.sidebarOpen)
   const setSidebarOpen = useAppStore((state) => state.setSidebarOpen)
 
@@ -46,10 +47,10 @@ export default function Sidebar({ active }: { active: boolean }) {
         <nav className="flex flex-col gap-4">
           <ul className="space-y-1">
             {error && <div>Error loading menu</div>}
-            {!menuItems && <div>Loading...</div>}
+            {isLoading && <div>Loading...</div>}
             {menuItems &&
               menuItems.map((item) => {
-                let Icon = item.icon
+                let Icon
                 if (item.name === 'Dashboard') {
                   Icon = <Cpu size={20} strokeWidth={1.5} />
                 } else if (item.name === 'Users') {
